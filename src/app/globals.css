@@ -1,0 +1,414 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-jakarta);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-surface: var(--surface);
+}
+
+:root {
+  --background: #000000;
+  /* Pure black */
+  --foreground: #e5e7eb;
+  /* Gray-200 */
+
+  --surface: #0f1115;
+  /* Slightly lighter for cards */
+
+  --primary: #00E5FF;
+  /* Cyan/Teal */
+  --primary-hover: #00B8CC;
+  --primary-foreground: #000000;
+
+  --secondary: #1F2937;
+  /* Gray-800 */
+  --secondary-foreground: #F3F4F6;
+
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+
+  --accent: #2dd4bf;
+  /* Teal-400 */
+  --accent-foreground: #000000;
+
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nav-boxed-effect {
+  position: relative;
+  display: inline-block;
+  padding: 8px 18px;
+  transition: .5s;
+  z-index: 1;
+}
+
+.nav-boxed-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
+  transform: scaleY(2);
+  opacity: 0;
+  transition: .3s;
+}
+
+.nav-boxed-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary);
+  transform: scale(0);
+  opacity: 0;
+  transition: .3s;
+  z-index: -1;
+}
+
+.nav-boxed-effect:hover {
+  color: #000 !important;
+}
+
+.nav-boxed-effect:hover::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.nav-boxed-effect:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Number Card Implementation */
+.number-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 7/8;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #000;
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.number-card .face {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.number-card .face.face1 {
+  box-sizing: border-box;
+  padding: 2.5rem;
+  z-index: 10;
+}
+
+.number-card .face.face2 {
+  background: #111;
+  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 20;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.number-card:hover .face.face2,
+.number-card.active .face.face2 {
+  height: 80px;
+  border-radius: 0 0 15px 15px;
+}
+
+.number-card .face.face2 div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.number-card:hover .face.face2 div,
+.number-card.active .face.face2 div {
+  /* Ensure the image remains visible and centered even when shrunk */
+  opacity: 0.9;
+}
+
+.number-card .face.face2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px 0 0 15px;
+}
+
+.number-card .face.face2 h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 8rem;
+  font-weight: 800;
+  color: #fff;
+  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.number-card:hover .face.face2 h2,
+.number-card.active .face.face2 h2 {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .number-card .face.face2 h2 {
+    font-size: 6rem;
+  }
+}
+
+/* Image Frame Hover Effect */
+.frame-hover-effect {
+  --b: 4px;
+  /* border thickness */
+  --g: 12px;
+  /* gap */
+  --c: var(--primary);
+  /* Brand Cyan */
+
+  cursor: pointer;
+  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: 100px solid rgba(0, 0, 0, 0);
+  outline-offset: -100px;
+}
+
+.frame-hover-effect:hover {
+  outline: var(--b) solid var(--c);
+  outline-offset: var(--g);
+}
+
+/* Mobile adjustments for the effect */
+@media (max-width: 768px) {
+  .frame-hover-effect {
+    --b: 2px;
+    --g: 8px;
+  }
+}
+
+/* Performance Optimization - GPU Acceleration */
+.gpu-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize all animations for smooth 60fps */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Reduce animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Unified Transition System */
+:root {
+  --transition-fast: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typewriter Cursor Animation */
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  font-weight: 300;
+  color: var(--primary);
+}
+
+@keyframes blink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+
+/* Ghost Text Effect */
+.ghost-text-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ghost-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20vmin;
+  font-weight: 900;
+  font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .ghost-title {
+    font-size: 15vmin;
+  }
+}
+
+.ghost {
+  width: 8vmin;
+  height: 12vmin;
+  background-color: rgba(255, 255, 255, 0.9);
+  background-image: radial-gradient(ellipse at 35% 40%, #000 8%, transparent 0%),
+    radial-gradient(ellipse at 65% 40%, #000 8%, transparent 0%),
+    radial-gradient(ellipse at 50% 60%, #000 8%, transparent 0%);
+  border-radius: 100% / 70% 70% 0% 0%;
+  position: absolute;
+  top: 50%;
+  opacity: 0.9;
+  mix-blend-mode: exclusion;
+  will-change: transform;
+  animation: ghostMove 6s ease-in-out infinite;
+}
+
+@keyframes ghostMove {
+  0% {
+    transform: translate(100vw, -50%) rotateZ(-90deg);
+  }
+
+  100% {
+    transform: translate(-20vw, -50%) rotateZ(-90deg);
+  }
+}
+
+.ghost:nth-child(2) {
+  animation-delay: 1.5s;
+  animation-duration: 7s;
+}
+
+.ghost:nth-child(3) {
+  animation-delay: 3s;
+  animation-duration: 5.5s;
+}
+
+.ghost:nth-child(4) {
+  animation-delay: 4.5s;
+  animation-duration: 6.5s;
+}
+
+.ghost div {
+  position: absolute;
+  width: 20%;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.ghost div:nth-of-type(1) {
+  height: 7vmin;
+  left: 0;
+  bottom: -6vmin;
+  border-radius: 100% / 0% 0% 50% 50%;
+}
+
+.ghost div:nth-of-type(2),
+.ghost div:nth-of-type(4) {
+  height: 4vmin;
+  left: 20%;
+  bottom: -3vmin;
+  border-radius: 100% / 50% 50% 0% 0%;
+  background-color: transparent;
+}
+
+.ghost div:nth-of-type(3) {
+  height: 4vmin;
+  left: 40%;
+  bottom: -3.95vmin;
+  border-radius: 100% / 0% 0% 60% 60%;
+}
+
+.ghost div:nth-of-type(4) {
+  left: 60%;
+}
+
+.ghost div:nth-of-type(5) {
+  height: 3vmin;
+  left: 80%;
+  bottom: -2.9vmin;
+  border-radius: 100% / 0% 0% 70% 70%;
+}
+
+@media (max-width: 768px) {
+  .ghost {
+    width: 6vmin;
+    height: 9vmin;
+  }
+
+  .ghost:nth-child(3),
+  .ghost:nth-child(4) {
+    display: none;
+  }
+}
