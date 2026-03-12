@@ -24,7 +24,7 @@ export function SelfDrawingLoader({
       transition: {
         pathLength: {
           duration: 1.5,
-          ease: "easeInOut",
+          ease: "easeInOut" as const,
           repeat: Infinity,
           repeatType: "loop" as const,
         },
@@ -46,7 +46,7 @@ export function SelfDrawingLoader({
       transition: {
         pathLength: {
           duration: 2,
-          ease: "easeInOut",
+          ease: "easeInOut" as const,
           repeat: Infinity,
           repeatType: "loop" as const,
           repeatDelay: 0.5,
@@ -106,7 +106,7 @@ export function SelfDrawingLoader({
           }}
           transition={{
             duration: 2,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             repeat: Infinity,
             repeatType: "loop",
             times: [0, 0.3, 0.7, 1]
