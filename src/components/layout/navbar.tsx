@@ -23,7 +23,7 @@ const dropdownMenus: Record<string, { items: MenuItem[] }> = {
         items: [
             { name: "About Us", href: "/company", icon: Building2, description: "Learn about our mission" },
             { name: "Careers", href: "/careers", icon: Briefcase, description: "Join our team" },
-            { name: "Blog", href: "/company#blog", icon: BookOpen, description: "Latest insights" },
+            { name: "Blog", href: "/blog", icon: BookOpen, description: "Latest insights" },
             { name: "Contact", href: "#contact", icon: Mail, description: "Get in touch", isModal: true },
         ]
     },
@@ -46,7 +46,6 @@ const dropdownMenus: Record<string, { items: MenuItem[] }> = {
 
 const simpleLinks = [
     { name: "Developers", href: "/developers" },
-    { name: "Pricing", href: "/pricing" },
 ];
 
 export function Navbar() {
@@ -57,6 +56,7 @@ export function Navbar() {
     const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
     const pathname = usePathname();
     const { openConnectModal } = useModal();
+    const ctaLabel = "Request a Demo";
 
     // Handle initial mount
     useEffect(() => {
@@ -159,6 +159,7 @@ export function Navbar() {
                                                         <Link
                                                             key={index}
                                                             href={item.href}
+                                                            prefetch={true}
                                                             className="flex items-start gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group/item"
                                                         >
                                                             <item.icon className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -185,6 +186,7 @@ export function Navbar() {
                             <Link
                                 key={link.href}
                                 href={link.href}
+                                prefetch={true}
                                 className={cn(
                                     "text-base font-medium transition-colors hover:text-primary nav-boxed-effect px-4 py-2",
                                     mounted && pathname === link.href
@@ -201,9 +203,11 @@ export function Navbar() {
                     <div className="flex items-center gap-4">
                         {/* CTA — desktop only */}
                         <Button
-                            className="hidden lg:inline-flex bg-primary hover:bg-primary/90 text-black font-bold h-11 px-6 text-base shadow-[0_0_20px_rgba(0,229,255,0.3)]"
+                            className="hidden lg:inline-flex bg-transparent text-white font-bold h-11 px-6 text-base hover:bg-primary hover:text-black transition-all duration-300 relative overflow-hidden group border-0 shadow-none outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0"
+                            onClick={openConnectModal}
                         >
-                            Get Started
+                            <span className="relative z-10">{ctaLabel}</span>
+                            <span className="absolute inset-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
                         </Button>
 
                         {/* Hamburger — shown on mobile & tablet (below lg) */}
@@ -279,6 +283,7 @@ export function Navbar() {
                                                             <Link
                                                                 key={itemIndex}
                                                                 href={item.href}
+                                                                prefetch={true}
                                                                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors"
                                                             >
                                                                 <item.icon className="w-5 h-5 text-primary flex-shrink-0" />
@@ -303,6 +308,7 @@ export function Navbar() {
                                 >
                                     <Link
                                         href={link.href}
+                                        prefetch={true}
                                         className={cn(
                                             "flex items-center justify-between text-lg font-medium p-4 rounded-lg hover:bg-white/5 transition-colors border border-white/10",
                                             mounted && pathname === link.href ? "text-primary bg-primary/5 border-primary/20" : "text-white"

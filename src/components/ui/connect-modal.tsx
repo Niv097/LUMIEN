@@ -4,26 +4,51 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, CheckCircle2 } from "lucide-react";
 import { Button } from "./button";
+import { SelfDrawingLoader } from "./self-drawing-loader";
 import { useModal } from "@/lib/modal-context";
+import { connectModalContent, contact } from "@/content/site-content";
 
 export function ConnectModal() {
     const { isConnectModalOpen, closeConnectModal } = useModal();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setIsSubmitted(true);
 
-        // Reset and close after delay
-        setTimeout(() => {
-            setIsSubmitted(false);
-            closeConnectModal();
-        }, 3000);
+        const subject = `Website inquiry - ${fullName}`;
+        const body = [`Name: ${fullName}`, `Email: ${email}`, "", message].join("\n");
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: fullName, email, message }),
+            });
+
+            if (!res.ok) {
+                const mailtoUrl = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoUrl;
+            }
+        } catch {
+            const mailtoUrl = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+        } finally {
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+
+            setTimeout(() => {
+                setIsSubmitted(false);
+                setFullName("");
+                setEmail("");
+                setMessage("");
+                closeConnectModal();
+            }, 1500);
+        }
     };
 
     return (
@@ -48,7 +73,7 @@ export function ConnectModal() {
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 border-b border-white/5 bg-white/5">
-                            <h2 className="text-2xl font-bold text-white tracking-tight">Let's Connect</h2>
+                            <h2 className="text-2xl font-bold text-white tracking-tight">{connectModalContent.title}</h2>
                             <button
                                 onClick={closeConnectModal}
                                 className="p-2 rounded-full hover:bg-white/10 text-muted-foreground hover:text-white transition-colors"
@@ -68,6 +93,8 @@ export function ConnectModal() {
                                             type="text"
                                             id="name"
                                             placeholder="Jane Doe"
+                                            value={fullName}
+                                            onChange={(e) => setFullName(e.target.value)}
                                             className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20"
                                         />
                                     </div>
@@ -79,6 +106,8 @@ export function ConnectModal() {
                                             type="email"
                                             id="email"
                                             placeholder="jane@company.com"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                             className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20"
                                         />
                                     </div>
@@ -89,7 +118,9 @@ export function ConnectModal() {
                                             required
                                             id="message"
                                             rows={4}
-                                            placeholder="Tell us about your project..."
+                                            placeholder={connectModalContent.messagePlaceholder}
+                                            value={message}
+                                            onChange={(e) => setMessage(e.target.value)}
                                             className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20 resize-none"
                                         />
                                     </div>
@@ -100,12 +131,8 @@ export function ConnectModal() {
                                         className="w-full h-14 text-lg font-bold bg-primary text-black hover:bg-primary/90 shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all group"
                                     >
                                         {isSubmitting ? (
-                                            <span className="flex items-center gap-2">
-                                                <motion.div
-                                                    animate={{ rotate: 360 }}
-                                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                                    className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full"
-                                                />
+                                            <span className="flex items-center justify-center gap-3">
+                                                <SelfDrawingLoader size={24} strokeWidth={1.5} />
                                                 Sending...
                                             </span>
                                         ) : (

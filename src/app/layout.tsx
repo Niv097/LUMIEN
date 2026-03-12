@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { layoutContent } from "@/content/site-content";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -9,8 +10,8 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "LUMIEN",
-  description: "Enterprise-grade financial infrastructure for the modern web.",
+  title: layoutContent.metadata.title,
+  description: layoutContent.metadata.description,
 };
 
 import { Navbar } from "@/components/layout/navbar";

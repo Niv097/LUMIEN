@@ -2,80 +2,21 @@
 
 import { motion } from "framer-motion";
 import { Shield, Lock, CheckCircle2, AlertTriangle, Activity } from "lucide-react";
+import { contact, securityContent } from "@/content/site-content";
 
-const certifications = [
-    {
-        icon: Shield,
-        title: "SOC 2 Type II",
-        description: "Certified for security, availability, and confidentiality",
-        status: "Certified"
-    },
-    {
-        icon: Lock,
-        title: "PCI DSS Level 1",
-        description: "Highest level of payment card security compliance",
-        status: "Certified"
-    },
-    {
-        icon: CheckCircle2,
-        title: "ISO 27001",
-        description: "International standard for information security management",
-        status: "Certified"
-    },
-    {
-        icon: Shield,
-        title: "GDPR Compliant",
-        description: "Full compliance with EU data protection regulations",
-        status: "Compliant"
-    }
-];
+const certifications = securityContent.certifications.map((cert, index) => {
+    const icons = [Shield, Lock, CheckCircle2, Shield] as const;
+    return {
+        icon: icons[index] ?? Shield,
+        title: cert.title,
+        description: cert.description,
+        status: cert.status,
+    };
+});
 
-const securityMeasures = [
-    {
-        title: "Encryption",
-        items: [
-            "AES-256 encryption for data at rest",
-            "TLS 1.3 for data in transit",
-            "End-to-end encryption for sensitive data",
-            "Hardware security modules (HSM) for key management"
-        ]
-    },
-    {
-        title: "Access Control",
-        items: [
-            "Multi-factor authentication (MFA) required",
-            "Role-based access control (RBAC)",
-            "Regular access reviews and audits",
-            "Principle of least privilege enforcement"
-        ]
-    },
-    {
-        title: "Monitoring & Response",
-        items: [
-            "24/7 security operations center (SOC)",
-            "Real-time threat detection and alerting",
-            "Automated incident response procedures",
-            "Regular penetration testing and vulnerability assessments"
-        ]
-    },
-    {
-        title: "Infrastructure",
-        items: [
-            "Multi-region redundancy and failover",
-            "DDoS protection and mitigation",
-            "Regular security patches and updates",
-            "Isolated network segments and firewalls"
-        ]
-    }
-];
+const securityMeasures = securityContent.securityMeasures;
 
-const systemStatus = [
-    { service: "API Gateway", status: "operational", uptime: "99.99%" },
-    { service: "Payment Processing", status: "operational", uptime: "99.98%" },
-    { service: "Authentication Service", status: "operational", uptime: "100%" },
-    { service: "Database Cluster", status: "operational", uptime: "99.99%" },
-    { service: "Webhook Delivery", status: "operational", uptime: "99.97%" }
-];
+const systemStatus = securityContent.systemStatus;
 
 export default function SecurityPage() {
     return (
@@ -93,7 +34,7 @@ export default function SecurityPage() {
                             Security & Compliance
                         </h1>
                         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                            Enterprise-grade security and compliance standards to protect your data and ensure trust.
+                            Security is non-negotiable—built with governance, auditability, and regulatory expectations in mind.
                         </p>
                     </motion.div>
                 </div>
@@ -249,8 +190,8 @@ export default function SecurityPage() {
                             <div className="pt-6 border-t border-white/10">
                                 <p className="text-sm text-muted-foreground">
                                     To report a security vulnerability, please email:{" "}
-                                    <a href="mailto:security@fiduciatech.com" className="text-primary hover:underline">
-                                        security@fiduciatech.com
+                                    <a href={`mailto:${contact.email}`} className="text-primary hover:underline">
+                                        {contact.email}
                                     </a>
                                 </p>
                             </div>
