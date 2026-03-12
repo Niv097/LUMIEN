@@ -152,9 +152,8 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                         <p className="text-muted-foreground text-sm group-hover:text-white/70 transition-colors duration-300">{job.department} • {job.location} • {job.type}</p>
                                         <p className="text-muted-foreground mt-2 group-hover:text-white/80 transition-colors duration-300">{job.description}</p>
                                     </div>
-                                    <Button variant="outline" className="border-white/20 text-white whitespace-nowrap hover:text-black hover:border-primary transition-all duration-300 relative overflow-hidden group/btn">
-                                        <span className="relative z-10 flex items-center">Apply Now <ArrowRight className="ml-2 w-4 h-4" /></span>
-                                        <span className="absolute inset-0 bg-primary scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+                                    <Button variant="outline" className="border-white/20 text-white whitespace-nowrap hover:border-primary hover:bg-primary/10 transition-all duration-300">
+                                        <span className="flex items-center">Apply Now <ArrowRight className="ml-2 w-4 h-4" /></span>
                                     </Button>
                                 </div>
                             </motion.div>
@@ -232,20 +231,19 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                     <p className="text-muted-foreground text-sm">Drop your resume here or click to upload</p>
                                 </div>
                             </div>
-                            <Button type="submit" size="lg" disabled={isSubmitting} className="w-full bg-primary text-black hover:text-white hover:bg-primary/90 transition-all duration-300 relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed">
-                                <span className={`relative z-10 flex items-center justify-center gap-2 transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                            <Button type="submit" size="lg" disabled={isSubmitting} variant="outline" className="w-full border-white/20 text-white hover:border-primary hover:bg-primary/10 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300">
+                                <span className={`flex items-center justify-center gap-2 transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                                     Submit Application
                                 </span>
                                 {isSubmitting && (
-                                    <span className="absolute inset-0 flex items-center justify-center z-10">
-                                        <svg className="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <span className="absolute inset-0 flex items-center justify-center">
+                                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                         </svg>
-                                        <span className="ml-2 text-black font-medium">Submitting...</span>
+                                        <span className="ml-2 text-white font-medium">Submitting...</span>
                                     </span>
                                 )}
-                                <span className="absolute inset-0 bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
                             </Button>
                         </form>
                     )}

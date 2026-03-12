@@ -73,8 +73,8 @@ export default function SolutionsClient({ data }: { data: SolutionsData | null }
                     {sol.description}
                   </p>
                   <div className="flex gap-4">
-                    <Button variant="outline" className="border-white/20 text-white">Learn More</Button>
-                    <Button variant="ghost" className="text-primary hover:text-primary-hover pl-0 hover:bg-transparent">
+                    <Button variant="outline" className="border-white/20 text-white hover:border-primary hover:bg-primary/10 transition-all duration-300">Learn More</Button>
+                    <Button variant="ghost" className="text-primary hover:text-white hover:bg-transparent pl-0">
                       View Case Studies <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </div>

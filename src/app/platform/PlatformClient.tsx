@@ -131,8 +131,9 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
       <Section className="text-center py-24">
         <h2 className="text-3xl font-bold text-white mb-8">{content.ctaHeading}</h2>
         <Button
+          variant="outline"
           size="lg"
-          className="bg-white text-black hover:bg-gray-200"
+          className="border-white/20 text-white hover:border-primary hover:bg-primary/10 transition-all duration-300"
           onClick={openConnectModal}
         >
           {content.ctaButtonText}

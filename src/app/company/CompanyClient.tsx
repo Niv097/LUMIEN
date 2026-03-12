@@ -133,12 +133,12 @@ export default function CompanyClient({ data }: { data: CompanyData | null }) {
           {content.joinTeamText}
         </p>
         <Button
+          variant="outline"
           size="lg"
-          className="bg-primary text-black hover:text-white hover:bg-primary/90 transition-all duration-300 relative overflow-hidden group"
+          className="border-white/20 text-white hover:border-primary hover:bg-primary/10 transition-all duration-300"
           onClick={() => router.push('/careers')}
         >
-          <span className="relative z-10">View Open Positions</span>
-          <span className="absolute inset-0 bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+          View Open Positions
         </Button>
       </Section>
     </div>

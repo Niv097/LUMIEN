@@ -93,7 +93,7 @@ export default function DevelopersStudioPage() {
             transition={{ delay: 0.3 }}
             className="flex gap-4"
           >
-            <Button className="bg-primary text-black hover:bg-primary/90">
+            <Button variant="outline" className="border-white/20 hover:bg-white/5 text-white">
               <Play className="mr-2 w-4 h-4" />
               Launch Studio
             </Button>

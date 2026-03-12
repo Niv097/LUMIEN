@@ -8,6 +8,7 @@ import { ParticleBackground } from "@/components/ui/particle-background";
 import { SequentialTypewriter } from "@/components/ui/typewriter-text";
 import { useModal } from "@/lib/modal-context";
 import { FeatureCards } from "@/components/home/feature-cards";
+import { UnderlineButton } from "@/components/ui/underline-button";
 
 export type HeroSegment = {
   text: string;
@@ -55,21 +56,21 @@ const itemVariants = {
 };
 
 const fallbackContent: ResolvedHomeContent = {
-  heroBadgeText: "New Platform Release v2.4",
+  heroBadgeText: "Lumien Innovative Ventures Pvt. Ltd.",
   heroSegments: [
-    { text: "Financial", br: true },
+    { text: "India's", br: true },
     {
-      text: "Infrastructure",
+      text: "Compliance-Driven",
       className: "text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50",
       br: true,
     },
-    { text: "Reimagined.", className: "text-primary" },
+    { text: "Banking Technology Partner", className: "text-primary" },
   ],
   heroParagraph:
-    "Build scalable financial products with our unified API.\nBanking, payments, and compliance infrastructure for the modern enterprise.",
-  platformTitle: "The Complete Financial Stack",
+    "Lumien delivers end-to-end banking software solutions built specifically for Indian banks.\nSecure, scalable, and aligned with RBI, NPCI, and SEBI guidelines.",
+  platformTitle: "Banking Software Solutions",
   platformParagraph:
-    "Everything you need to build, launch, and scale financial products.\nOne platform, endless possibilities.",
+    "From Core Banking to Regulatory Compliance, Digital Channels to Risk Management,\nwe power banks with technology that performs under scrutiny.",
 };
 
 export default function HomeClient({ content }: { content: HomeContent | null }) {
@@ -87,7 +88,7 @@ export default function HomeClient({ content }: { content: HomeContent | null })
     <div className="flex flex-col min-h-screen">
       <ParticleBackground />
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 md:pb-40 overflow-hidden bg-transparent min-h-[800px] flex items-center">
+      <section className="relative pt-8 md:pt-16 pb-24 md:pb-40 overflow-hidden bg-transparent min-h-[800px] flex items-center">
         <div className="container px-4 md:px-6 mx-auto relative z-10">
           <div className="w-full md:w-1/2">
             <motion.div
@@ -124,35 +125,23 @@ export default function HomeClient({ content }: { content: HomeContent | null })
               </motion.div>
 
               <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mt-4">
-                <Button
-                  size="lg"
-                  className="text-lg md:text-base font-semibold bg-primary text-black hover:bg-primary/90 h-14 md:h-12 px-8"
-                >
-                  Start Building
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base h-12 px-8 border-white/20 hover:bg-white/5 text-white"
-                  onClick={openConnectModal}
-                >
-                  Let's Connect
-                </Button>
+                <UnderlineButton onClick={openConnectModal}>
+                  Schedule a Consultation
+                </UnderlineButton>
               </motion.div>
 
               <motion.div variants={itemVariants} className="mt-8 pt-8 border-t border-white/10 hidden md:flex gap-8">
                 <div className="flex flex-col">
-                  <span className="text-2xl md:text-3xl font-bold text-white">99.99%</span>
-                  <span className="text-xs md:text-sm text-muted-foreground">Uptime SLA</span>
+                  <span className="text-2xl md:text-3xl font-bold text-white">Compliance</span>
+                  <span className="text-xs md:text-sm text-muted-foreground">Embedded by design</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-2xl md:text-3xl font-bold text-white">$50B+</span>
-                  <span className="text-xs md:text-sm text-muted-foreground">Processed</span>
+                  <span className="text-2xl md:text-3xl font-bold text-white">Secure</span>
+                  <span className="text-xs md:text-sm text-muted-foreground">Audit-grade controls</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-2xl md:text-3xl font-bold text-white">200+</span>
-                  <span className="text-xs md:text-sm text-muted-foreground">Countries</span>
+                  <span className="text-2xl md:text-3xl font-bold text-white">Scalable</span>
+                  <span className="text-xs md:text-sm text-muted-foreground">Cloud & on-prem</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -211,22 +200,22 @@ export default function HomeClient({ content }: { content: HomeContent | null })
           <div>
             <div className="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-3 py-1 text-sm font-medium text-accent mb-6">
               <Code2 className="mr-2 h-4 w-4" />
-              Developer Experience
+              Banking Integration
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Integrate in minutes, <br /> not months.
+              Compliance-ready APIs,<br /> built for Indian banking.
             </h2>
             <p className="text-xl md:text-lg text-muted-foreground mb-8 text-pretty">
-              Our intuitive API reference and client libraries make integration seamless.
-              Focus on building your product, not wrestling with infrastructure.
+              Our API reference and integration guides help banks connect core systems,
+              compliance workflows, and digital channels with regulatory confidence.
             </p>
 
             <ul className="space-y-4 mb-8">
               {[
-                "Type-safe SDKs for Node, Python, and Go",
-                "Real-time webhooks and event streaming",
-                "Sandbox environment for testing",
-                "Comprehensive API documentation",
+                "RBI-compliant API specifications",
+                "UPI, IMPS, RTGS/NEFT integration helpers",
+                "AML & KYC workflow templates",
+                "Audit-grade logging & access controls",
               ].map((item, i) => (
                 <li key={i} className="flex items-center text-white/80">
                   <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
@@ -235,8 +224,8 @@ export default function HomeClient({ content }: { content: HomeContent | null })
               ))}
             </ul>
 
-            <Button variant="outline" size="lg" className="border-white/20 hover:bg-white/10 text-white h-12 px-6">
-              Read Documentation
+            <Button variant="outline" size="lg" className="border-white/20 text-white hover:border-primary hover:bg-primary/10 transition-all duration-300">
+              View API Documentation
             </Button>
           </div>
 
@@ -253,17 +242,16 @@ export default function HomeClient({ content }: { content: HomeContent | null })
               </div>
               <div className="p-6 overflow-x-auto bg-black">
                 <pre className="font-mono text-sm leading-relaxed">
-                  <span className="text-[#C792EA]">const</span> <span className="text-[#82AAFF]">payment</span> <span className="text-[#89DDFF]">=</span> <span className="text-[#C792EA]">await</span> <span className="text-[#FFCB6B]">fiducia</span>.<span className="text-[#82AAFF]">payments</span>.<span className="text-[#FFCB6B]">create</span>({"{"}
-                  {"\n"}  <span className="text-[#F07178]">amount</span>: <span className="text-[#F78C6C]">5000</span>,
-                  {"\n"}  <span className="text-[#F07178]">currency</span>: <span className="text-[#C3E88D]">'usd'</span>,
-                  {"\n"}  <span className="text-[#F07178]">customer</span>: <span className="text-[#C3E88D]">'cus_123456789'</span>,
-                  {"\n"}  <span className="text-[#F07178]">payment_method</span>: <span className="text-[#C3E88D]">'pm_card_visa'</span>,
-                  {"\n"}  <span className="text-[#F07178]">confirm</span>: <span className="text-[#F78C6C]">true</span>
+                  <span className="text-[#C792EA]">const</span> <span className="text-[#82AAFF]">txn</span> <span className="text-[#89DDFF]">=</span> <span className="text-[#C792EA]">await</span> <span className="text-[#FFCB6B]">lumien</span>.<span className="text-[#82AAFF]">transactions</span>.<span className="text-[#FFCB6B]">verify</span>({"{"}
+                  {"\n"}  <span className="text-[#F07178]">account</span>: <span className="text-[#C3E88D]">'ACC123456'</span>,
+                  {"\n"}  <span className="text-[#F07178]">ifsc</span>: <span className="text-[#C3E88D]">'HDFC0000123'</span>,
+                  {"\n"}  <span className="text-[#F07178]">amount</span>: <span className="text-[#F78C6C]">50000</span>,
+                  {"\n"}  <span className="text-[#F07178]">validateCompliance</span>: <span className="text-[#F78C6C]">true</span>
                   {"\n"}{"}"});
                   {"\n"}
-                  {"\n"}<span className="text-[#546E7A] italic">// Handle successful payment</span>
-                  {"\n"}<span className="text-[#89DDFF]">if</span> (payment.status === <span className="text-[#C3E88D]">'succeeded'</span>) {"{"}
-                  {"\n"}  <span className="text-[#82AAFF]">console</span>.<span className="text-[#FFCB6B]">log</span>(<span className="text-[#C3E88D]">'Payment verified!'</span>);
+                  {"\n"}<span className="text-[#546E7A] italic">// Transaction validated successfully</span>
+                  {"\n"}<span className="text-[#89DDFF]">if</span> (txn.status === <span className="text-[#C3E88D]">'verified'</span>) {"{"}
+                  {"\n"}  <span className="text-[#82AAFF]">console</span>.<span className="text-[#FFCB6B]">log</span>(<span className="text-[#C3E88D]">'Transaction verified!'</span>);
                   {"\n"}{"}"}
                 </pre>
               </div>
@@ -276,14 +264,14 @@ export default function HomeClient({ content }: { content: HomeContent | null })
       <Section className="py-24 border-t border-white/5 bg-black">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm font-semibold text-muted-foreground mb-12 uppercase tracking-widest">
-            Trusted by innovative companies worldwide
+            Trusted by Indian banks & financial institutions
           </p>
           <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
-            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">ACME Corp</h3>
-            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">GlobalBank</h3>
-            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">FinStart</h3>
-            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">SecurePay</h3>
-            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">TechFund</h3>
+            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">Public Sector Banks</h3>
+            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">Private Banks</h3>
+            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">Cooperative Banks</h3>
+            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">Regional Rural Banks</h3>
+            <h3 className="text-2xl font-bold text-white hover:text-primary transition-colors cursor-default">Small Finance Banks</h3>
           </div>
         </div>
       </Section>
@@ -301,27 +289,16 @@ export default function HomeClient({ content }: { content: HomeContent | null })
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
-              Ready to transform <br /> your infrastructure?
+              Partner With Lumien
             </h2>
             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Join thousands of developers building the future of finance with Fiducia Tech.
-              Get started with $500 in free credits.
+              Modernize legacy systems, strengthen compliance controls, and build next-generation
+              digital banking platforms with a compliance-first approach.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Button
-                size="lg"
-                className="h-14 px-8 text-lg font-bold bg-primary text-black hover:bg-primary/90 shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:shadow-[0_0_50px_rgba(0,229,255,0.6)] transition-shadow"
-              >
-                Get API Keys
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="h-14 px-8 text-lg border-white/10 text-white hover:bg-white/5 backdrop-blur-sm"
-                onClick={openConnectModal}
-              >
-                Let's Connect
-              </Button>
+              <UnderlineButton onClick={openConnectModal}>
+                Schedule a Consultation
+              </UnderlineButton>
             </div>
           </motion.div>
         </div>

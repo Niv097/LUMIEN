@@ -145,7 +145,7 @@ export default function BlogPage() {
                   
                   {/* Read More */}
                   <div className="mt-4 pt-4 border-t border-white/10">
-                    <span className="inline-flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all duration-300">
+                    <span className="inline-flex items-center gap-2 text-cyan font-medium group-hover:gap-3 transition-all duration-300">
                       Read More <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
@@ -172,7 +172,7 @@ export default function BlogPage() {
                 placeholder="Enter your email"
                 className="flex-1 h-12 bg-white/5 border border-white/10 rounded-lg px-4 text-white focus:outline-none focus:border-primary"
               />
-              <button className="h-12 px-6 bg-primary text-black font-bold rounded-lg hover:bg-primary/90 transition-colors">
+              <button className="h-12 px-6 border border-white/20 text-white font-bold rounded-lg hover:border-primary hover:bg-primary/10 transition-all duration-300">
                 Subscribe
               </button>
             </div>

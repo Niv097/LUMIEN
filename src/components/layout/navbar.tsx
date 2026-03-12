@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedLogo } from "@/components/ui/animated-logo";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/lib/modal-context";
+import { UnderlineButton } from "@/components/ui/underline-button";
 
 type MenuItem = {
     name: string;
@@ -99,7 +100,7 @@ export function Navbar() {
             )}
         >
             <div className="container mx-auto px-4 md:px-6">
-                <div className="flex items-center justify-between h-24">
+                <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center z-50 flex-shrink-0 overflow-visible">
                         <AnimatedLogo size="md" />
@@ -207,7 +208,7 @@ export function Navbar() {
                             onClick={openConnectModal}
                         >
                             <span className="relative z-10">{ctaLabel}</span>
-                            <span className="absolute inset-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
+                            <span className="absolute inset-0 bg-cyan scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left" />
                         </Button>
 
                         {/* Hamburger — shown on mobile & tablet (below lg) */}
@@ -229,7 +230,7 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.1 }}
-                        className="absolute top-24 left-0 right-0 bg-black/95 border-b border-white/10 backdrop-blur-xl lg:hidden max-h-[calc(100vh-6rem)] overflow-y-auto"
+                        className="absolute top-16 left-0 right-0 bg-black/95 border-b border-white/10 backdrop-blur-xl lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto"
                     >
                         <div className="flex flex-col p-6 gap-2">
                             {/* Mobile Accordion Sections */}
@@ -326,9 +327,9 @@ export function Navbar() {
                                 transition={{ duration: 0 }}
                                 className="mt-4"
                             >
-                                <Button className="w-full h-12 text-lg bg-primary text-black font-bold">
-                                    Get Started
-                                </Button>
+                                <UnderlineButton onClick={openConnectModal} className="w-full">
+                                    Schedule a Consultation
+                                </UnderlineButton>
                             </motion.div>
                         </div>
                     </motion.div>
