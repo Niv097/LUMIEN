@@ -52,8 +52,17 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
         coverLetter: "",
         resume: null as File | null
     });
+    const [selectedPosition, setSelectedPosition] = useState<string>("");
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleApplyClick = (positionTitle: string) => {
+        setSelectedPosition(positionTitle);
+        const formElement = document.getElementById('application-form');
+        if (formElement) {
+            formElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     const content = {
         heading: data?.heading || "Join Our Team",
@@ -78,12 +87,19 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
         await new Promise(resolve => setTimeout(resolve, 2000));
         setIsSubmitting(false);
         setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
+        setFormData({
+            fullName: "",
+            email: "",
+            phone: "",
+            position: "",
+            coverLetter: "",
+            resume: null
+        });
     };
 
     return (
         <div className="min-h-screen">
-            <section className="pt-32 pb-20">
+            <section className="pt-4 md:pt-32 pb-12 md:pb-20 min-h-screen flex flex-col justify-center">
                 <div className="container px-4">
                     <motion.div
                         variants={containerVariants}
@@ -102,7 +118,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
             </section>
 
             {/* Benefits */}
-            <section className="py-20 bg-gradient-to-b from-white/5 to-transparent border-y border-white/5">
+            <section className="py-12 md:py-20 bg-gradient-to-b from-white/5 to-transparent border-y border-white/5 min-h-screen flex flex-col justify-center">
                 <div className="container px-4">
                     <h2 className="text-3xl font-bold text-white text-center mb-12">
                         <TextReveal>Why Join Us</TextReveal>
@@ -130,7 +146,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
             </section>
 
             {/* Job Openings */}
-            <section className="py-20">
+            <section className="py-12 md:py-20 min-h-screen flex flex-col justify-center">
                 <div className="container px-4">
                     <h2 className="text-3xl font-bold text-white mb-8">Open Positions</h2>
                     <div className="space-y-4">
@@ -152,7 +168,11 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                         <p className="text-muted-foreground text-sm group-hover:text-white/70 transition-colors duration-300">{job.department} • {job.location} • {job.type}</p>
                                         <p className="text-muted-foreground mt-2 group-hover:text-white/80 transition-colors duration-300">{job.description}</p>
                                     </div>
-                                    <Button variant="outline" className="border-white/20 text-white whitespace-nowrap hover:border-primary hover:bg-primary/10 transition-all duration-300">
+                                    <Button 
+                                        variant="outline" 
+                                        className="border-white/20 text-white whitespace-nowrap hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                                        onClick={() => handleApplyClick(job.title)}
+                                    >
                                         <span className="flex items-center">Apply Now <ArrowRight className="ml-2 w-4 h-4" /></span>
                                     </Button>
                                 </div>
@@ -163,7 +183,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
             </section>
 
             {/* Application Form */}
-            <section className="py-20 bg-gradient-to-b from-white/5 to-transparent border-t border-white/5">
+            <section id="application-form" className="py-12 md:py-20 bg-gradient-to-b from-white/5 to-transparent border-t border-white/5 flex flex-col justify-center">
                 <div className="container px-4 max-w-2xl mx-auto">
                     <h2 className="text-3xl font-bold text-white text-center mb-8">Apply Now</h2>
                     {submitted ? (
@@ -174,10 +194,17 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                         >
                             <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
                             <h3 className="text-2xl font-bold text-white mb-2">Application Submitted!</h3>
-                            <p className="text-muted-foreground">We'll get back to you within 5 business days.</p>
+                            <p className="text-muted-foreground mb-8">We'll get back to you within 5 business days.</p>
+                            <Button
+                                variant="outline"
+                                onClick={() => setSubmitted(false)}
+                                className="border-white/20 text-white hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                            >
+                                Apply for Another Role
+                            </Button>
                         </motion.div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6 overflow-x-hidden">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-sm font-medium text-white mb-2">Full Name</label>
@@ -204,13 +231,14 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                 <label className="block text-sm font-medium text-white mb-2">Position</label>
                                 <select
                                     required
-                                    className="w-full h-12 bg-white/5 border border-white/10 rounded-lg px-4 text-white focus:outline-none focus:border-primary"
-                                    value={formData.position}
+                                    className="w-full h-12 bg-black border border-white/20 rounded-lg px-4 pr-10 text-white focus:outline-none focus:border-primary appearance-none cursor-pointer max-w-full"
+                                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center' }}
+                                    value={formData.position || selectedPosition}
                                     onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                                 >
-                                    <option value="">Select a position</option>
+                                    <option value="" className="bg-black text-white">Select a position</option>
                                     {content.jobOpenings.map((job, i) => (
-                                        <option key={i} value={job.title}>{job.title}</option>
+                                        <option key={i} value={job.title} className="bg-black text-white">{job.title}</option>
                                     ))}
                                 </select>
                             </div>
@@ -231,7 +259,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                     <p className="text-muted-foreground text-sm">Drop your resume here or click to upload</p>
                                 </div>
                             </div>
-                            <Button type="submit" size="lg" disabled={isSubmitting} variant="outline" className="w-full border-white/20 text-white hover:border-primary hover:bg-primary/10 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300">
+                            <Button type="submit" size="lg" disabled={isSubmitting} variant="outline" className="w-full border-white/20 text-white hover:border-primary hover:bg-primary/10 active:border-primary active:bg-primary/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300">
                                 <span className={`flex items-center justify-center gap-2 transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                                     Submit Application
                                 </span>

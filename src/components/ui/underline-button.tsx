@@ -17,13 +17,14 @@ export function UnderlineButton({ children, onClick, className }: UnderlineButto
         "px-6 py-3 text-base font-medium text-white",
         "bg-transparent",
         "transition-all duration-300",
+        "active:scale-95 active:opacity-80",
         className
       )}
     >
       <span className="relative">
         {children}
-        <span className="absolute left-0 bottom-0 w-full h-0.5 bg-white origin-left scale-x-100 transition-transform duration-300 group-hover:scale-x-0" />
-        <span className="absolute left-0 bottom-0 w-full h-0.5 bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+        <span className="absolute left-0 bottom-0 w-full h-0.5 bg-white origin-left scale-x-100 transition-transform duration-300 group-hover:scale-x-0 group-active:scale-x-0" />
+        <span className="absolute left-0 bottom-0 w-full h-0.5 bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 group-active:scale-x-100" />
       </span>
     </button>
   );

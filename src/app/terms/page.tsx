@@ -9,7 +9,7 @@ export default function TermsPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-black to-surface">
+            <section className="relative pt-4 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-gradient-to-b from-black to-surface min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ export default function TermsPage() {
             </section>
 
             {/* Content Section */}
-            <section className="py-20">
+            <section className="py-12 md:py-20 min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="max-w-4xl mx-auto space-y-12">
                         {sections.map((section, index) => (

@@ -22,7 +22,7 @@ export default function SecurityPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-black to-surface">
+            <section className="relative pt-4 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-gradient-to-b from-black to-surface min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export default function SecurityPage() {
             </section>
 
             {/* System Status Section */}
-            <section className="py-20">
+            <section className="py-12 md:py-20 min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="max-w-4xl mx-auto">
                         <div className="flex items-center gap-3 mb-8">
@@ -84,7 +84,7 @@ export default function SecurityPage() {
             </section>
 
             {/* Certifications Section */}
-            <section className="py-20 bg-surface/50">
+            <section className="py-12 md:py-20 bg-surface/50 min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-white mb-4">Certifications & Compliance</h2>
@@ -116,7 +116,7 @@ export default function SecurityPage() {
             </section>
 
             {/* Security Measures Section */}
-            <section className="py-20">
+            <section className="py-12 md:py-20 min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-white mb-4">Security Measures</h2>
@@ -151,7 +151,7 @@ export default function SecurityPage() {
             </section>
 
             {/* Incident Response Section */}
-            <section className="py-20 bg-surface/50">
+            <section className="py-12 md:py-20 bg-surface/50 min-h-screen flex flex-col justify-center">
                 <div className="container px-4 md:px-6 mx-auto">
                     <div className="max-w-4xl mx-auto">
                         <div className="flex items-center gap-3 mb-8">

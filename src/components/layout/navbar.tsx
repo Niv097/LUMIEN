@@ -216,7 +216,18 @@ export function Navbar() {
                             className="lg:hidden z-50 text-white p-1"
                             onClick={() => setIsOpen(!isOpen)}
                         >
-                            {isOpen ? <X size={28} /> : <Menu size={28} />}
+                                                    {isOpen ? (
+                            <motion.div
+                                initial={{ rotate: -90, opacity: 0 }}
+                                animate={{ rotate: 0, opacity: 1 }}
+                                exit={{ rotate: 90, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <X size={28} />
+                            </motion.div>
+                        ) : (
+                            <Menu size={28} />
+                        )}
                         </button>
                     </div>
                 </div>
@@ -234,36 +245,31 @@ export function Navbar() {
                     >
                         <div className="flex flex-col p-6 gap-2">
                             {/* Mobile Accordion Sections */}
-                            {Object.entries(dropdownMenus).map(([key, menu], sectionIndex) => (
-                                <motion.div
-                                    key={key}
-                                    initial={{ opacity: 1, x: 0 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0 }}
-                                    className="border border-white/10 rounded-lg overflow-hidden"
-                                >
-                                    {/* Section Header */}
+                            {Object.entries(dropdownMenus).map(([key, menu]) => (
+                                <div key={key} className="overflow-hidden">
                                     <button
                                         onClick={() => toggleMobileSection(key)}
-                                        className="w-full flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 transition-colors"
+                                        className={cn(
+                                            "w-full flex items-center justify-between text-lg font-medium p-4 rounded-lg hover:bg-white/5 transition-colors border border-white/10",
+                                            mobileExpandedSection === key ? "text-primary bg-primary/5 border-primary/20" : "text-white"
+                                        )}
                                     >
-                                        <span className="text-white font-semibold text-lg">{key}</span>
+                                        <span>{key}</span>
                                         <ChevronDown
+                                            size={20}
                                             className={cn(
-                                                "w-5 h-5 text-primary transition-transform",
+                                                "text-muted-foreground transition-transform duration-200",
                                                 mobileExpandedSection === key && "rotate-180"
                                             )}
                                         />
                                     </button>
-
-                                    {/* Expandable Content */}
                                     <AnimatePresence>
                                         {mobileExpandedSection === key && (
                                             <motion.div
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: "auto", opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.1 }}
+                                                transition={{ duration: 0.2 }}
                                                 className="overflow-hidden"
                                             >
                                                 <div className="p-2 space-y-1 bg-black/30">
@@ -285,6 +291,7 @@ export function Navbar() {
                                                                 key={itemIndex}
                                                                 href={item.href}
                                                                 prefetch={true}
+                                                                onClick={() => setIsOpen(false)}
                                                                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors"
                                                             >
                                                                 <item.icon className="w-5 h-5 text-primary flex-shrink-0" />
@@ -296,11 +303,11 @@ export function Navbar() {
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
-                                </motion.div>
+                                </div>
                             ))}
 
                             {/* Mobile Simple Links */}
-                            {simpleLinks.map((link, i) => (
+                            {simpleLinks.map((link) => (
                                 <motion.div
                                     key={link.href}
                                     initial={{ opacity: 1, x: 0 }}
@@ -310,6 +317,7 @@ export function Navbar() {
                                     <Link
                                         href={link.href}
                                         prefetch={true}
+                                        onClick={() => setIsOpen(false)}
                                         className={cn(
                                             "flex items-center justify-between text-lg font-medium p-4 rounded-lg hover:bg-white/5 transition-colors border border-white/10",
                                             mounted && pathname === link.href ? "text-primary bg-primary/5 border-primary/20" : "text-white"

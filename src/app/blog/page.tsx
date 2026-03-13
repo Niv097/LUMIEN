@@ -73,7 +73,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="pt-32 pb-20">
+      <section className="pt-4 md:pt-32 pb-12 md:pb-20 min-h-screen flex flex-col justify-center">
         <div className="container px-4 max-w-6xl mx-auto">
           <motion.div
             variants={containerVariants}

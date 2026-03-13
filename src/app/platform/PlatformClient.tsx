@@ -58,8 +58,8 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
 
   return (
     <div className="min-h-screen">
-      <Section className="pt-32 pb-16 bg-gradient-to-b from-black to-background">
-        <Section className="pt-32 pb-20 text-center">
+      <Section className="pt-4 md:pt-32 pb-12 md:pb-16 bg-gradient-to-b from-black to-background text-center flex flex-col justify-center">
+        <Section className="pt-4 md:pt-32 pb-12 md:pb-20 text-center flex flex-col justify-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             <TextReveal>{content.heading}</TextReveal>
           </h1>
@@ -69,7 +69,7 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
         </Section>
       </Section>
 
-      <Section className="py-20">
+      <Section className="py-12 md:py-20 flex flex-col justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {content.modules.map((item, i) => {
             const Icon = iconMap[item.icon] || BadgeCheck;
@@ -101,7 +101,7 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
         </div>
       </Section>
 
-      <Section className="bg-white/5 border-y border-white/5 py-24">
+      <Section className="bg-white/5 border-y border-white/5 py-12 md:py-24 flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-3xl font-bold text-white mb-6">Engineered for Reliability</h2>
@@ -128,7 +128,7 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
         </div>
       </Section>
 
-      <Section className="text-center py-24">
+      <Section className="text-center py-12 md:py-24 flex flex-col justify-center">
         <h2 className="text-3xl font-bold text-white mb-8">{content.ctaHeading}</h2>
         <Button
           variant="outline"

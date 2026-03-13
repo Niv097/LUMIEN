@@ -49,7 +49,7 @@ export default function DevelopersClient({ data }: { data: DevelopersData | null
 
   return (
     <div className="min-h-screen">
-      <Section className="pt-32 pb-16 bg-gradient-to-br from-black to-slate-900 border-b border-white/5">
+      <Section className="pt-4 md:pt-32 pb-12 md:pb-16 bg-gradient-to-br from-black to-slate-900 border-b border-white/5 min-h-screen flex flex-col justify-center">
         <div className="container px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -80,7 +80,7 @@ export default function DevelopersClient({ data }: { data: DevelopersData | null
         </div>
       </Section>
 
-      <Section className="py-20">
+      <Section className="py-12 md:py-20 min-h-screen flex flex-col justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {content.cards.map((card, i) => {
             const Icon = iconMap[card.icon] || Terminal;

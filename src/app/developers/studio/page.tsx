@@ -53,7 +53,7 @@ export default function DevelopersStudioPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <Section className="pt-32 pb-16 bg-gradient-to-br from-black to-slate-900 border-b border-white/5">
+      <Section className="pt-4 md:pt-32 pb-12 md:pb-16 bg-gradient-to-br from-black to-slate-900 border-b border-white/5 min-h-screen flex flex-col justify-center">
         <div className="container px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -106,7 +106,7 @@ export default function DevelopersStudioPage() {
       </Section>
 
       {/* Code Playground */}
-      <Section className="py-20">
+      <Section className="py-12 md:py-20 min-h-screen flex flex-col justify-center">
         <div className="container px-4">
           <h2 className="text-2xl font-bold text-white mb-8">Code Snippets</h2>
           

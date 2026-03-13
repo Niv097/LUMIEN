@@ -44,14 +44,14 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <ParticleBackground />
       {/* Hero Section */}
-      <section className="relative pt-4 md:pt-16 pb-12 md:pb-40 overflow-hidden bg-transparent min-h-[400px] md:min-h-[800px] flex items-start md:items-center">
+      <section className="relative pt-4 md:pt-16 pb-8 md:pb-40 overflow-hidden bg-transparent flex items-start md:items-center">
         <div className="container px-4 md:px-6 mx-auto relative z-10">
           <div className="w-full md:w-1/2">
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="flex flex-col gap-6 gpu-accelerated"
+              className="flex flex-col gap-8 md:gap-6 gpu-accelerated"
             >
               <motion.div variants={itemVariants}>
                 <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-base md:text-sm font-medium text-primary">
@@ -80,7 +80,7 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mt-4">
+              <motion.div variants={itemVariants} className="mt-8 md:mt-4">
                 <UnderlineButton onClick={openConnectModal}>
                   {homeContent.heroSecondaryCta}
                 </UnderlineButton>
@@ -125,7 +125,7 @@ export default function Home() {
       </section >
 
       {/* Platform Overview */}
-      <Section className="border-t border-white/5">
+      <Section className="border-t border-white/5 flex flex-col justify-center">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -147,7 +147,7 @@ export default function Home() {
       </Section >
 
       {/* Code / Developer Section */}
-      <Section className="border-t border-white/5 relative bg-black">
+      <Section className="border-t border-white/5 relative bg-black flex flex-col justify-center">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
           <div>
@@ -214,7 +214,7 @@ export default function Home() {
       </Section >
 
       {/* Trust Section */}
-      < Section className="py-24 border-t border-white/5 bg-black" >
+      < Section className="py-24 border-t border-white/5 bg-black flex flex-col justify-center" >
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm font-semibold text-muted-foreground mb-12 uppercase tracking-widest">
             Trusted by Indian banks & financial institutions
@@ -230,7 +230,7 @@ export default function Home() {
       </Section >
 
       {/* CTA Section */}
-      < Section className="relative overflow-hidden py-32" >
+      < Section className="relative overflow-hidden py-32 flex flex-col justify-center" >
         <div className="absolute inset-0 bg-primary/5 z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-black to-black opacity-70" />
 

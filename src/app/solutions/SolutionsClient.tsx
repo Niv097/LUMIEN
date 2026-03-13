@@ -37,7 +37,7 @@ export default function SolutionsClient({ data }: { data: SolutionsData | null }
 
   return (
     <div className="min-h-screen">
-      <Section className="pt-32 pb-20 text-center">
+      <Section className="pt-4 md:pt-32 pb-12 md:pb-20 text-center flex flex-col justify-center">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
           <TextReveal>{content.heading}</TextReveal>
         </h1>
@@ -54,7 +54,7 @@ export default function SolutionsClient({ data }: { data: SolutionsData | null }
           return (
             <Section
               key={i}
-              className="py-24 border-t border-white/5 relative overflow-hidden"
+              className="py-12 md:py-24 border-t border-white/5 relative overflow-hidden flex flex-col justify-center"
             >
               {/* Glowing orb effect */}
               <div className={`absolute ${i % 2 === 0 ? '-right-40' : '-left-40'} top-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-[120px] opacity-40 ${i === 0 ? 'bg-primary' : i === 1 ? 'bg-accent' : 'bg-purple-500'}`} />
