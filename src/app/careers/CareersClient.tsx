@@ -253,11 +253,45 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-white mb-2">Resume</label>
-                                <div className="border border-white/10 border-dashed rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
-                                    <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                                    <p className="text-muted-foreground text-sm">Drop your resume here or click to upload</p>
+                                <label className="block text-sm font-medium text-white mb-2">
+                                    Resume <span className="text-red-500">*</span>
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept=".pdf,.doc,.docx"
+                                        required
+                                        className="hidden"
+                                        id="resume-upload"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0] || null;
+                                            setFormData({ ...formData, resume: file });
+                                        }}
+                                    />
+                                    <label
+                                        htmlFor="resume-upload"
+                                        className={`border border-dashed rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer block ${
+                                            formData.resume ? 'border-green-500/50 bg-green-500/5' : 'border-white/10'
+                                        }`}
+                                    >
+                                        {formData.resume ? (
+                                            <div className="flex flex-col items-center">
+                                                <CheckCircle2 className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                                                <p className="text-white text-sm font-medium">{formData.resume.name}</p>
+                                                <p className="text-muted-foreground text-xs mt-1">Click to change file</p>
+                                            </div>
+                                        ) : (
+                                            <div className="flex flex-col items-center">
+                                                <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                                                <p className="text-muted-foreground text-sm">Drop your resume here or click to upload</p>
+                                                <p className="text-muted-foreground text-xs mt-1">PDF, DOC, or DOCX (max 5MB)</p>
+                                            </div>
+                                        )}
+                                    </label>
                                 </div>
+                                {!formData.resume && (
+                                    <p className="text-red-500 text-xs mt-1">Resume is required</p>
+                                )}
                             </div>
                             <Button type="submit" size="lg" disabled={isSubmitting} variant="outline" className="w-full border-white/20 text-white hover:border-primary hover:bg-primary/10 active:border-primary active:bg-primary/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300">
                                 <span className={`flex items-center justify-center gap-2 transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
