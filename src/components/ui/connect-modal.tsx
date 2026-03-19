@@ -14,6 +14,7 @@ export function ConnectModal() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
     const [message, setMessage] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -21,13 +22,13 @@ export function ConnectModal() {
         setIsSubmitting(true);
 
         const subject = `Website inquiry - ${fullName}`;
-        const body = [`Name: ${fullName}`, `Email: ${email}`, "", message].join("\n");
+        const body = [`Name: ${fullName}`, `Email: ${email}`, `Mobile: ${mobileNumber}`, "", message].join("\n");
 
         try {
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: fullName, email, message }),
+                body: JSON.stringify({ name: fullName, email, mobile: mobileNumber, message }),
             });
 
             if (!res.ok) {
@@ -45,6 +46,7 @@ export function ConnectModal() {
                 setIsSubmitted(false);
                 setFullName("");
                 setEmail("");
+                setMobileNumber("");
                 setMessage("");
                 closeConnectModal();
             }, 1500);
@@ -108,6 +110,22 @@ export function ConnectModal() {
                                             placeholder="jane@company.com"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
+                                            className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label htmlFor="mobile" className="text-sm font-medium text-white/70 ml-1">Mobile Number</label>
+                                        <input
+                                            required
+                                            type="tel"
+                                            id="mobile"
+                                            placeholder="Enter your mobile number"
+                                            inputMode="numeric"
+                                            maxLength={10}
+                                            pattern="[0-9]{10}"
+                                            value={mobileNumber}
+                                            onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, "").slice(0, 10))}
                                             className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20"
                                         />
                                     </div>

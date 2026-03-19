@@ -97,23 +97,176 @@ export const featureCardsContent = {
     {
       image: "/images/01.jpeg",
       title: "Core Banking System",
-      href: "/solutions#marketplaces",
+      href: "/case-study/core-banking",
       description: "A scalable and secure CBS for CASA, deposits, loans, and real-time ledger & MIS.",
     },
     {
       image: "/images/02.jpeg",
       title: "Regulatory & Compliance",
-      href: "/solutions#startups",
+      href: "/case-study/compliance",
       description: "RBI reporting automation, CRR/SLR monitoring, AML & KYC workflows, and audit-ready controls.",
     },
     {
       image: "/images/03.jpeg",
       title: "Digital Banking",
-      href: "/solutions#saas",
+      href: "/case-study/digital-banking",
       description: "Omnichannel mobile, internet, and corporate banking with API banking plus UPI & IMPS integration.",
+    },
+    {
+      image: "/images/04.jpeg",
+      title: "Document Management System",
+      href: "/case-study/dms",
+      description: "Securely store, manage, and retrieve financial documents with advanced encryption and access control. Streamline document workflows, ensure compliance, and reduce manual paperwork for banking operations.",
+    },
+    {
+      image: "/images/05.jpeg",
+      title: "Loan Management System",
+      href: "/case-study/lms",
+      description: "Efficiently manage the entire loan lifecycle from application to approval and repayment. Automate workflows, track customer data, and improve decision-making with a smart loan processing system.",
     },
   ],
 } as const;
+
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  tagline: string;
+  gradient: string;
+  accentColor: string;
+  problem: string;
+  solution: string;
+  features: string[];
+  results: { metric: string; label: string }[];
+};
+
+export const caseStudiesContent: Record<string, CaseStudy> = {
+  "core-banking": {
+    slug: "core-banking",
+    title: "Core Banking System",
+    tagline: "Modernizing legacy banking infrastructure for real-time operations",
+    gradient: "from-cyan-500/20 via-black to-black",
+    accentColor: "text-cyan-400",
+    problem:
+      "The bank was operating on outdated legacy systems causing slow transaction processing, limited scalability, and frequent downtime during peak hours. Branch operations were siloed with no real-time visibility into account balances or ledger positions, leading to reconciliation delays and customer dissatisfaction.",
+    solution:
+      "Lumien implemented a modern Core Banking System (CBS) with real-time processing, centralized data management, and high scalability. The system enabled seamless handling of CASA accounts, deposits, and loans across all branches. A unified customer master ensured data consistency, and the high-availability architecture eliminated single points of failure.",
+    features: [
+      "Real-time transaction processing across all channels",
+      "Centralized customer database with unified KYC",
+      "High availability architecture with automatic failover",
+      "Scalable infrastructure supporting 10x peak load",
+      "Integrated MIS & regulatory reporting engine",
+      "Multi-branch & multi-currency operations",
+    ],
+    results: [
+      { metric: "60%", label: "Faster transaction processing" },
+      { metric: "40%", label: "Reduction in system downtime" },
+      { metric: "99.99%", label: "System availability achieved" },
+      { metric: "3x", label: "Branch throughput improvement" },
+    ],
+  },
+  compliance: {
+    slug: "compliance",
+    title: "Regulatory & Compliance",
+    tagline: "Ensuring full regulatory compliance with automated reporting",
+    gradient: "from-teal-500/20 via-black to-black",
+    accentColor: "text-teal-400",
+    problem:
+      "The bank struggled with manual compliance processes, delayed RBI reporting, and high risk of AML/KYC violations. Compliance officers spent over 60% of their time on manual data collection and report preparation, leaving little bandwidth for actual risk analysis. Audit readiness was poor and findings frequently resulted in regulatory notices.",
+    solution:
+      "Lumien developed an automated compliance system with real-time monitoring, AML/KYC validation, and instant report generation aligned with RBI regulations. The platform consolidates data from all banking modules, applies configurable rule engines for suspicious transaction detection, and generates submission-ready reports for RBI, FIU-IND, and internal audit committees.",
+    features: [
+      "Automated RBI regulatory report generation (BSR, DBIE, FMR)",
+      "AML/KYC real-time verification & screening",
+      "Configurable rule engine for suspicious activity detection",
+      "CRR/SLR monitoring with automated alerts",
+      "Risk assessment engine with dynamic scoring",
+      "Audit trail & evidence management system",
+    ],
+    results: [
+      { metric: "70%", label: "Reduction in manual compliance work" },
+      { metric: "100%", label: "Regulatory reporting accuracy" },
+      { metric: "2 days", label: "Audit readiness turnaround" },
+      { metric: "0", label: "Regulatory notices post-implementation" },
+    ],
+  },
+  "digital-banking": {
+    slug: "digital-banking",
+    title: "Digital Banking",
+    tagline: "Delivering seamless and secure digital banking experiences",
+    gradient: "from-purple-500/20 via-black to-black",
+    accentColor: "text-purple-400",
+    problem:
+      "Customers faced slow mobile banking services, limited digital features, and poor transaction reliability leading to high drop-off rates. The bank's legacy internet banking portal had a 40% abandonment rate on payments and couldn't support UPI transactions. Customer complaints related to digital channels had increased 3x year-on-year.",
+    solution:
+      "Lumien built a modern digital banking platform with mobile-first design, UPI/IMPS integration, and secure multi-factor authentication systems. The platform supports real-time transaction tracking, instant fund transfers, and a self-service portal for account management. API-first architecture enabled rapid integration with third-party fintech services.",
+    features: [
+      "Mobile & internet banking platform (iOS, Android, Web)",
+      "UPI & IMPS integration aligned with NPCI standards",
+      "Secure MFA login with biometric authentication",
+      "Real-time transaction tracking & instant notifications",
+      "Corporate banking portal with maker-checker workflows",
+      "API banking layer for fintech partner integrations",
+    ],
+    results: [
+      { metric: "3x", label: "Increase in digital transactions" },
+      { metric: "50%", label: "Faster payment processing" },
+      { metric: "35%", label: "Increase in digital active users" },
+      { metric: "90%", label: "Reduction in digital complaints" },
+    ],
+  },
+  dms: {
+    slug: "dms",
+    title: "Document Management System",
+    tagline: "Securely digitize, manage, and retrieve banking documents with full compliance traceability",
+    gradient: "from-blue-500/20 via-black to-black",
+    accentColor: "text-blue-400",
+    problem:
+      "The bank was managing thousands of loan documents, KYC records, and regulatory filings in physical form, creating significant storage costs, retrieval delays, and compliance gaps. Document loss during branch transfers and inability to produce original records during audits were recurring issues leading to regulatory scrutiny.",
+    solution:
+      "Lumien deployed a Document Management System with AES-256 encrypted storage, role-based access control, and automated document lifecycle management. Integration with the CBS ensures that every account and loan transaction automatically triggers the appropriate document capture workflow, eliminating manual handoffs and ensuring nothing falls through the cracks.",
+    features: [
+      "Encrypted document vault with AES-256 at rest",
+      "Role-based access control with full audit trail",
+      "Automated document workflow & approval routing",
+      "OCR-powered document indexing & intelligent search",
+      "Version control with tamper-evident storage",
+      "Regulatory retention policies with automated archiving",
+    ],
+    results: [
+      { metric: "80%", label: "Reduction in document retrieval time" },
+      { metric: "100%", label: "Audit document availability" },
+      { metric: "65%", label: "Storage cost reduction" },
+      { metric: "Zero", label: "Document loss incidents post-go-live" },
+    ],
+  },
+  lms: {
+    slug: "lms",
+    title: "Loan Management System",
+    tagline: "Efficiently manage the full loan lifecycle from origination to closure",
+    gradient: "from-amber-500/20 via-black to-black",
+    accentColor: "text-amber-400",
+    problem:
+      "The bank's loan origination process was entirely manual, taking 7–14 days from application to disbursement. Credit appraisal relied on spreadsheets with no automated bureau pulls or income validation, resulting in high NPA rates and inconsistent underwriting decisions. Post-disbursement monitoring was absent, leading to missed early warning signals.",
+    solution:
+      "Lumien implemented an end-to-end Loan Management System covering origination, credit appraisal, sanctioning, disbursement, and collections. Automated credit bureau integration, rule-based eligibility checks, and digital document collection compressed the turnaround to under 48 hours. Real-time NPA monitoring and early warning indicators significantly improved portfolio quality.",
+    features: [
+      "Digital loan origination with e-KYC & video verification",
+      "Automated credit bureau integration (CIBIL, Experian, CRIF)",
+      "Rule-based eligibility engine with configurable credit policies",
+      "Maker-checker sanction workflow with digital approvals",
+      "Real-time repayment tracking & automated EMI processing",
+      "NPA monitoring with early warning signal dashboard",
+    ],
+    results: [
+      { metric: "75%", label: "Reduction in loan processing time" },
+      { metric: "48 hrs", label: "Average disbursement turnaround" },
+      { metric: "30%", label: "Improvement in NPA detection" },
+      { metric: "4x", label: "Loan volume handled without added staff" },
+    ],
+  },
+};
+
 
 export const layoutContent = {
   metadata: {

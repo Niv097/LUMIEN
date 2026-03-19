@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { BadgeCheck, Banknote, Globe, Lock, ShieldCheck, Wallet } from "lucide-react";
 import { Section } from "@/components/ui/section";
@@ -101,7 +102,7 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
         </div>
       </Section>
 
-      <Section className="bg-white/5 border-y border-white/5 py-12 md:py-24 flex flex-col justify-center">
+      <Section id="api" className="bg-white/5 border-y border-white/5 py-12 md:py-24 flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-3xl font-bold text-white mb-6">Engineered for Reliability</h2>
@@ -114,16 +115,14 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
               ))}
             </div>
           </div>
-          <div className="relative h-[400px] w-full rounded-xl overflow-hidden border border-white/10 bg-black/50 frame-hover-effect">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-50" />
-            <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1 p-4 opacity-30">
-              {Array.from({ length: 36 }).map((_, i) => (
-                <div key={i} className="bg-white/5 rounded-sm" />
-              ))}
-            </div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-              <div className="text-6xl font-bold text-white/10">API</div>
-            </div>
+          <div className="relative h-[400px] w-full rounded-xl overflow-hidden border border-white/10 frame-hover-effect">
+            <Image
+              src="/images/API.jpg"
+              alt="API Reference"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </Section>

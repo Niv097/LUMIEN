@@ -31,8 +31,8 @@ const dropdownMenus: Record<string, { items: MenuItem[] }> = {
     Solutions: {
         items: [
             { name: "For Marketplaces", href: "/solutions#marketplaces", icon: Store, description: "Multi-vendor platforms" },
-            { name: "For Startups", href: "/solutions#startups", icon: Rocket, description: "Scale your business" },
-            { name: "For SaaS", href: "/solutions#saas", icon: Zap, description: "Embedded payments" },
+            { name: "For Startups", href: "/solutions/startups", icon: Rocket, description: "Scale your business" },
+            { name: "For SaaS", href: "/solutions/saas", icon: Zap, description: "Embedded payments" },
         ]
     },
     Platform: {

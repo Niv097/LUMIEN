@@ -20,6 +20,8 @@
   --color-accent-foreground: var(--accent-foreground);
 
   --color-surface: var(--surface);
+
+
 }
 
 :root {
@@ -42,6 +44,9 @@
 
   --muted: #1f2937;
   --muted-foreground: #9ca3af;
+
+  --yellow: #EAB308;
+  /* Yellow */
 
   --accent: #2dd4bf;
   /* Teal-400 */
