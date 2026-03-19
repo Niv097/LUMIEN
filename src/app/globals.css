@@ -146,7 +146,7 @@ body {
 
 .number-card .face.face2 {
   background: #111;
-  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 20;
   overflow: hidden;
   border-radius: 15px;
@@ -163,7 +163,7 @@ body {
   height: 100%;
   background-size: cover;
   background-position: center;
-  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .number-card:hover .face.face2 div,
@@ -189,7 +189,7 @@ body {
   font-size: 8rem;
   font-weight: 800;
   color: #fff;
-  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 

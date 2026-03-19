@@ -115,12 +115,12 @@ export default function PlatformClient({ data }: { data: PlatformData | null }) 
               ))}
             </div>
           </div>
-          <div className="relative h-[400px] w-full rounded-xl overflow-hidden border border-white/10 frame-hover-effect">
+          <div className="relative h-[260px] sm:h-[340px] lg:h-[420px] w-full rounded-xl overflow-hidden border border-white/10 frame-hover-effect bg-[#0a0f14]">
             <Image
               src="/images/API.jpg"
               alt="API Reference"
               fill
-              className="object-cover"
+              className="object-contain"
               priority
             />
           </div>
