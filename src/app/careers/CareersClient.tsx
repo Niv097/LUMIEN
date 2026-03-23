@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Upload, CheckCircle2, Briefcase, Users, TrendingUp, Heart } from "lucide-react";
+import { ArrowRight, Upload, CheckCircle2, XCircle, Briefcase, Users, TrendingUp, Heart } from "lucide-react";
 import { TextReveal } from "@/components/ui/text-reveal";
 
 const containerVariants = {
@@ -54,6 +54,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
     });
     const [selectedPosition, setSelectedPosition] = useState<string>("");
     const [submitted, setSubmitted] = useState(false);
+    const [submitError, setSubmitError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleApplyClick = (positionTitle: string) => {
@@ -83,18 +84,27 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate submission
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        setIsSubmitting(false);
-        setSubmitted(true);
-        setFormData({
-            fullName: "",
-            email: "",
-            phone: "",
-            position: "",
-            coverLetter: "",
-            resume: null
-        });
+        setSubmitError("");
+        try {
+            const fd = new FormData();
+            fd.append("name",     formData.fullName);
+            fd.append("email",    formData.email);
+            fd.append("phone",    formData.phone);
+            fd.append("position", formData.position || selectedPosition);
+            fd.append("message",  formData.coverLetter || "(No cover letter provided)");
+            fd.append("formType", "job_application");
+            if (formData.resume) fd.append("resume", formData.resume);
+
+            const res = await fetch("/api/send-mail", { method: "POST", body: fd });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Failed to send");
+            setSubmitted(true);
+            setFormData({ fullName: "", email: "", phone: "", position: "", coverLetter: "", resume: null });
+        } catch (err) {
+            setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -293,6 +303,12 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                     <p className="text-red-500 text-xs mt-1">Resume is required</p>
                                 )}
                             </div>
+                            {submitError && (
+                                <div className="flex items-center gap-2 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                                    <XCircle className="w-4 h-4 flex-shrink-0" />
+                                    {submitError}
+                                </div>
+                            )}
                             <Button type="submit" size="lg" disabled={isSubmitting} variant="outline" className="w-full border-white/20 text-white hover:border-primary hover:bg-primary/10 active:border-primary active:bg-primary/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300">
                                 <span className={`flex items-center justify-center gap-2 transition-opacity ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                                     Submit Application

@@ -6,7 +6,7 @@ import { X, Send, CheckCircle2 } from "lucide-react";
 import { Button } from "./button";
 import { SelfDrawingLoader } from "./self-drawing-loader";
 import { useModal } from "@/lib/modal-context";
-import { connectModalContent, contact } from "@/content/site-content";
+import { connectModalContent } from "@/content/site-content";
 
 export function ConnectModal() {
     const { isConnectModalOpen, closeConnectModal } = useModal();
@@ -21,27 +21,26 @@ export function ConnectModal() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        const subject = `Website inquiry - ${fullName}`;
-        const body = [`Name: ${fullName}`, `Email: ${email}`, `Mobile: ${mobileNumber}`, "", message].join("\n");
-
         try {
-            const res = await fetch("/api/contact", {
+            const res = await fetch("/api/send-mail", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: fullName, email, mobile: mobileNumber, message }),
+                body: JSON.stringify({
+                    name: fullName,
+                    email,
+                    phone: mobileNumber,
+                    message,
+                    formType: "consultation",
+                }),
             });
 
-            if (!res.ok) {
-                const mailtoUrl = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                window.location.href = mailtoUrl;
-            }
-        } catch {
-            const mailtoUrl = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoUrl;
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Failed to send");
+        } catch (err) {
+            console.error("Contact form error:", err);
         } finally {
             setIsSubmitting(false);
             setIsSubmitted(true);
-
             setTimeout(() => {
                 setIsSubmitted(false);
                 setFullName("");

@@ -5,9 +5,10 @@ export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, message } = (await req.json()) as {
+    const { name, email, mobile, message } = (await req.json()) as {
       name?: string;
       email?: string;
+      mobile?: string;
       message?: string;
     };
 
@@ -32,7 +33,8 @@ export async function POST(req: Request) {
       host,
       port,
       secure,
-      auth: { user, pass },
+      requireTLS: !secure,
+      auth: { user, pass, type: "login" },
       tls: {
         rejectUnauthorized: false,
       },
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
       to,
       replyTo: email,
       subject: `Website inquiry - ${name}`,
-      text: [`Name: ${name}`, `Email: ${email}`, "", message].join("\n"),
+      text: [`Name: ${name}`, `Email: ${email}`, `Mobile: ${mobile || "—"}`, "", message].join("\n"),
     });
 
     return NextResponse.json({ ok: true });

@@ -35,7 +35,8 @@ export async function POST(req: Request) {
       host,
       port,
       secure,
-      auth: { user, pass },
+      requireTLS: !secure,
+      auth: { user, pass, type: "login" },
       tls: {
         rejectUnauthorized: false,
       },
