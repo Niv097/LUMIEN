@@ -12,6 +12,9 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: layoutContent.metadata.title,
   description: layoutContent.metadata.description,
+  verification: {
+    google: "vlRE875ERyfaaKPyq2JMYWhcVAcdwQwMBvQhY_AzcWc",
+  },
 };
 
 import { Navbar } from "@/components/layout/navbar";
