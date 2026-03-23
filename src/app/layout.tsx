@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { layoutContent } from "@/content/site-content";
+import Script from "next/script";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -10,10 +11,26 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: layoutContent.metadata.title,
-  description: layoutContent.metadata.description,
+  title: "Lumien India – Banking Technology Company",
+  description:
+    "Lumien India provides compliance-driven banking software solutions for Indian banks. Secure, scalable fintech platform aligned with RBI and NPCI.",
   verification: {
     google: "vlRE875ERyfaaKPyq2JMYWhcVAcdwQwMBvQhY_AzcWc",
+  },
+  openGraph: {
+    title: "Lumien India – Banking Technology Company",
+    description:
+      "Lumien India provides compliance-driven banking software solutions for Indian banks.",
+    url: "https://lumien-india.com",
+    siteName: "Lumien India",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://lumien-india.com",
   },
 };
 
@@ -23,7 +40,20 @@ import { MobileReloadRedirect } from "@/components/utils/MobileReloadRedirect";
 import { ModalProvider } from "@/lib/modal-context";
 import { ConnectModal } from "@/components/ui/connect-modal";
 
-// ... (imports)
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Lumien India",
+  url: "https://lumien-india.com",
+  logo: "https://lumien-india.com/images/logo.png",
+  description:
+    "Lumien India provides compliance-driven banking software solutions for Indian banks, aligned with RBI and NPCI regulations.",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "IN",
+  },
+  sameAs: ["https://lumien-india.com"],
+};
 
 export default function RootLayout({
   children,
@@ -32,14 +62,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${jakarta.variable} font-sans antialiased bg-background text-foreground flex flex-col min-h-screen`}>
+      <head>
+        <Script
+          id="json-ld-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body
+        className={`${jakarta.variable} font-sans antialiased bg-background text-foreground flex flex-col min-h-screen`}
+      >
         <ModalProvider>
           <MobileReloadRedirect />
           <ConnectModal />
           <Navbar />
-          <main className="flex-grow pt-24">
-            {children}
-          </main>
+          <main className="flex-grow pt-24">{children}</main>
           <Footer />
         </ModalProvider>
       </body>

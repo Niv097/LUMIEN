@@ -53,6 +53,10 @@ export default function Home() {
               animate="visible"
               className="flex flex-col gap-8 md:gap-6 gpu-accelerated"
             >
+              {/* SEO-only headings — visually hidden, fully crawlable */}
+              <h1 className="sr-only">Lumien India</h1>
+              <h2 className="sr-only">India's Compliance-Driven Banking Technology Partner</h2>
+
               <motion.div variants={itemVariants}>
                 <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-base md:text-sm font-medium text-primary">
                   <span className="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
@@ -76,7 +80,8 @@ export default function Home() {
 
               <motion.div variants={itemVariants}>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-[600px] leading-relaxed whitespace-pre-line">
-                  {homeContent.heroParagraphLines.join("\n")}
+                  Lumien India delivers end-to-end banking software solutions for Indian banks.
+                  {" "}{homeContent.heroParagraphLines.join(" ")}
                 </p>
               </motion.div>
 

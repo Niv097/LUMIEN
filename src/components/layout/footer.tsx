@@ -77,7 +77,7 @@ export function Footer() {
 
                 <div className="pt-2 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-2">
                     <p className="text-xs text-muted-foreground">
-                        © {new Date().getFullYear()} Lumien. All rights reserved.
+                        © {new Date().getFullYear()} Lumien India. All rights reserved.
                     </p>
                     <div className="flex gap-4">
                         {/* Social Icons Placeholder */}
