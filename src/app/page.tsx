@@ -224,10 +224,13 @@ export default function Home() {
               WebkitMaskImage: 'radial-gradient(circle at center, black 35%, transparent 80%)'
             }}
           >
-            <img
+            <Image
               src="/images/photo.png"
               alt="Platform Interface"
-              className="w-full h-full object-cover mix-blend-screen scale-[1.2]"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover mix-blend-screen scale-[1.2]"
             />
           </div>
 
