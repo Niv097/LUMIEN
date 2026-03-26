@@ -97,7 +97,7 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={itemVariants}>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] min-h-[120px] sm:min-h-[140px] md:min-h-[180px] lg:min-h-[220px]">
                   <SequentialTypewriter
                     speed={70}
                     delay={400}
