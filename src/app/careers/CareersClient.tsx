@@ -248,11 +248,25 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                     <input
                                         type="email"
                                         required
-                                        className="w-full h-12 bg-white/5 border border-white/10 rounded-lg px-4 text-white focus:outline-none focus:border-primary"
+                                        placeholder="jane@company.com"
+                                        className="w-full h-12 bg-white/5 border border-white/10 rounded-lg px-4 text-white focus:outline-none focus:border-primary placeholder:text-white/20"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     />
                                 </div>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-white mb-2">Phone Number</label>
+                                <input
+                                    type="tel"
+                                    required
+                                    placeholder="+91 98765 43210"
+                                    inputMode="numeric"
+                                    maxLength={10}
+                                    className="w-full h-12 bg-white/5 border border-white/10 rounded-lg px-4 text-white focus:outline-none focus:border-primary placeholder:text-white/20"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+                                />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-white mb-2">Position</label>
@@ -273,7 +287,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                 <label className="block text-sm font-medium text-white mb-2">Cover Letter</label>
                                 <textarea
                                     rows={4}
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-primary resize-none"
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-primary placeholder:text-white/20 resize-none"
                                     value={formData.coverLetter}
                                     onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
                                     placeholder="Tell us why you're interested in this role..."
