@@ -59,14 +59,15 @@ export function ConnectModal() {
     return (
         <AnimatePresence>
             {isConnectModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6">
-                    {/* Backdrop */}
+                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6 overscroll-none">
+                    {/* Backdrop — captures all touch events so background can't scroll on mobile */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={closeConnectModal}
+                        style={{ touchAction: "none" }}
                         className="fixed inset-0 bg-black/80 backdrop-blur-sm"
                     />
 
