@@ -56,6 +56,7 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
     const [submitted, setSubmitted] = useState(false);
     const [submitError, setSubmitError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [nameError, setNameError] = useState(false);
 
     const handleApplyClick = (positionTitle: string) => {
         setSelectedPosition(positionTitle);
@@ -221,10 +222,26 @@ export default function CareersClient({ data }: { data: CareersData | null }) {
                                     <input
                                         type="text"
                                         required
-                                        className="w-full h-12 bg-white/5 border border-white/10 rounded-lg px-4 text-white focus:outline-none focus:border-primary"
+                                        placeholder="Jane Doe"
+                                        className={`w-full h-12 bg-white/5 border rounded-lg px-4 text-white focus:outline-none focus:border-primary placeholder:text-white/20 transition-colors ${
+                                            nameError ? 'border-red-500/60' : 'border-white/10'
+                                        }`}
                                         value={formData.fullName}
-                                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                        onKeyDown={(e) => {
+                                            if (/[0-9]/.test(e.key)) {
+                                                e.preventDefault();
+                                                setNameError(true);
+                                                setTimeout(() => setNameError(false), 2000);
+                                            }
+                                        }}
+                                        onChange={(e) => {
+                                            const filtered = e.target.value.replace(/[^a-zA-Z\s\-']/g, '');
+                                            setFormData({ ...formData, fullName: filtered });
+                                        }}
                                     />
+                                    {nameError && (
+                                        <p className="text-xs text-red-400/80 mt-0.5 ml-1">Numbers are not allowed in the name</p>
+                                    )}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-white mb-2">Email</label>

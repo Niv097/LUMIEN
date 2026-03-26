@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useAnimate, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 import { ArrowRight, CheckCircle, Code2, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,18 +40,38 @@ const itemVariants = {
 
 export default function Home() {
   const { openConnectModal } = useModal();
-  const [tapped, setTapped] = useState(false);
+  const [pillScope, animatePill] = useAnimate();
+  const [arrowScope, animateArrow] = useAnimate();
+  const [busy, setBusy] = useState(false);
 
-  const handleMobileTap = useCallback(() => {
-    if (tapped) return;
-    setTapped(true);
-    // After arrow shoots + fades (480ms), open modal
-    setTimeout(() => {
-      openConnectModal();
-      // Reset state after modal opens so button works again next time
-      setTimeout(() => setTapped(false), 600);
-    }, 480);
-  }, [tapped, openConnectModal]);
+  const handleMobileTap = useCallback(async () => {
+    if (busy) return;
+    setBusy(true);
+    // 1. Tactile press
+    await animatePill(pillScope.current, { scale: 0.92 }, { duration: 0.08 });
+    // 2. Expand pill to show label
+    await animatePill(pillScope.current,
+      { scale: 1, width: "220px", borderColor: "rgba(34,211,238,0.7)",
+        background: "linear-gradient(90deg,rgba(34,211,238,0.20) 0%,rgba(99,102,241,0.20) 100%)" },
+      { duration: 0.32, ease: [0.16, 1, 0.3, 1] }
+    );
+    // 3. Arrow shoots right
+    await animateArrow(arrowScope.current,
+      { x: [0, 10, 90], opacity: [1, 1, 0] },
+      { duration: 0.36, ease: [0.4, 0, 0.2, 1] }
+    );
+    // 4. Whole pill fades out
+    await animatePill(pillScope.current, { opacity: 0, y: -6 }, { duration: 0.2 });
+    // 5. Open modal
+    openConnectModal();
+    // 6. Reset for next time
+    animatePill(pillScope.current,
+      { opacity: 1, y: 0, scale: 1, width: "48px", borderColor: "rgba(34,211,238,0.5)", background: "rgba(255,255,255,0.05)" },
+      { duration: 0 }
+    );
+    animateArrow(arrowScope.current, { x: 0, opacity: 1 }, { duration: 0 });
+    setBusy(false);
+  }, [busy, openConnectModal, animatePill, animateArrow, pillScope, arrowScope]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -98,40 +118,60 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={itemVariants} className="mt-6">
-                {/* Keyframes: float (shared), shoot+fade (mobile tap) */}
-                <style>{`
-                  @keyframes hero-float {
-                    0%,100% { transform: translateY(0); }
-                    50%      { transform: translateY(-4px); }
-                  }
-                  @keyframes arrow-shoot {
-                    0%   { transform: translateX(0);    opacity: 1; }
-                    60%  { transform: translateX(48px); opacity: 1; }
-                    100% { transform: translateX(72px); opacity: 0; }
-                  }
-                  .arrow-shoot-animate {
-                    animation: arrow-shoot 0.45s cubic-bezier(0.4,0,0.2,1) forwards !important;
-                  }
-                `}</style>
+                <style>{`@keyframes hero-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}`}</style>
 
-                {/* ── MOBILE ONLY: tap → shoot → modal ── */}
-                <button
-                  onClick={handleMobileTap}
-                  aria-label="Schedule a Consultation"
-                  className="md:hidden flex items-center justify-center
-                    w-12 h-12 rounded-full cursor-pointer
-                    border border-cyan-500/50
-                    bg-white/5 backdrop-blur-sm
-                    shadow-[0_2px_12px_rgba(34,211,238,0.10)]
-                    focus:outline-none focus:ring-2 focus:ring-cyan-500/40
-                    active:scale-95 transition-transform duration-100"
-                  style={{ animation: tapped ? "none" : "hero-float 3.5s ease-in-out infinite" }}
-                >
-                  <ArrowRight
-                    className={`h-5 w-5 text-cyan-400${tapped ? " arrow-shoot-animate" : ""}`}
-                    strokeWidth={2}
-                  />
-                </button>
+                {/* ── MOBILE ONLY: Framer Motion tap sequence ── */}
+                <div className="md:hidden flex flex-col items-start gap-3">
+                  <motion.button
+                    ref={pillScope}
+                    onClick={handleMobileTap}
+                    aria-label="Schedule a Consultation"
+                    style={{
+                      animation: busy ? "none" : "hero-float 3.5s ease-in-out infinite",
+                      width: 48, height: 48,
+                      borderRadius: 9999,
+                      border: "1px solid rgba(34,211,238,0.5)",
+                      background: "rgba(255,255,255,0.05)",
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "0 2px 12px rgba(34,211,238,0.10)",
+                      display: "flex", alignItems: "center",
+                      overflow: "hidden", cursor: "pointer",
+                      outline: "none",
+                    }}
+                  >
+                    {/* Arrow icon — animated separately */}
+                    <span
+                      ref={arrowScope}
+                      style={{
+                        flexShrink: 0, display: "flex",
+                        alignItems: "center", justifyContent: "center",
+                        width: 48, minWidth: 48,
+                      }}
+                    >
+                      <ArrowRight className="h-5 w-5 text-cyan-400" strokeWidth={2} />
+                    </span>
+                    {/* Label that appears as pill expands */}
+                    <span
+                      style={{
+                        whiteSpace: "nowrap", fontSize: 13,
+                        fontWeight: 500, color: "rgba(255,255,255,0.88)",
+                        paddingRight: 18,
+                      }}
+                    >
+                      Schedule a Consultation
+                    </span>
+                  </motion.button>
+
+                  {/* Hint text beneath */}
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 0.6 }}
+                    className="text-xs text-white/35 tracking-wide pl-1 select-none"
+                  >
+                    Tap to schedule a consultation
+                  </motion.span>
+                </div>
 
                 {/* ── DESKTOP ONLY: hover expand ── */}
                 <button

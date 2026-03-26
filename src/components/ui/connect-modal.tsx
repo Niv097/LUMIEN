@@ -13,7 +13,9 @@ export function ConnectModal() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [fullName, setFullName] = useState("");
+    const [nameError, setNameError] = useState(false);
     const [email, setEmail] = useState("");
+    const [emailError, setEmailError] = useState(false);
     const [mobileNumber, setMobileNumber] = useState("");
     const [message, setMessage] = useState("");
 
@@ -47,6 +49,8 @@ export function ConnectModal() {
                 setEmail("");
                 setMobileNumber("");
                 setMessage("");
+                setNameError(false);
+                setEmailError(false);
                 closeConnectModal();
             }, 1500);
         }
@@ -55,23 +59,35 @@ export function ConnectModal() {
     return (
         <AnimatePresence>
             {isConnectModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
                         onClick={closeConnectModal}
                         className="fixed inset-0 bg-black/80 backdrop-blur-sm"
                     />
 
-                    {/* Modal Content */}
+                    {/* Modal Content — slides up on mobile, scales in on desktop */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-lg bg-black/90 border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-10"
+                        initial={{ opacity: 0, y: "100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "100%" }}
+                        transition={{ type: "spring", damping: 28, stiffness: 280 }}
+                        className="relative w-full md:max-w-lg bg-black/95 md:bg-black/90
+                            border-t md:border border-white/10
+                            rounded-t-2xl md:rounded-2xl
+                            shadow-2xl z-10
+                            flex flex-col
+                            max-h-[90dvh] md:max-h-[90vh] overflow-hidden"
                     >
+                        {/* Mobile drag handle */}
+                        <div className="md:hidden flex justify-center pt-3 pb-1">
+                            <div className="w-10 h-1 rounded-full bg-white/20" />
+                        </div>
+
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 border-b border-white/5 bg-white/5">
                             <h2 className="text-2xl font-bold text-white tracking-tight">{connectModalContent.title}</h2>
@@ -84,10 +100,10 @@ export function ConnectModal() {
                         </div>
 
                         {/* Content */}
-                        <div className="p-8">
+                        <div className="p-5 md:p-8 overflow-y-auto flex-1">
                             {!isSubmitted ? (
                                 <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div className="space-y-2">
+                                    <div className="space-y-1">
                                         <label htmlFor="name" className="text-sm font-medium text-white/70 ml-1">Full Name</label>
                                         <input
                                             required
@@ -95,12 +111,30 @@ export function ConnectModal() {
                                             id="name"
                                             placeholder="Jane Doe"
                                             value={fullName}
-                                            onChange={(e) => setFullName(e.target.value)}
-                                            className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20"
+                                            onKeyDown={(e) => {
+                                                if (/[0-9]/.test(e.key)) {
+                                                    e.preventDefault();
+                                                    setNameError(true);
+                                                    setTimeout(() => setNameError(false), 2000);
+                                                }
+                                            }}
+                                            onChange={(e) => {
+                                                // Allow only letters, spaces, hyphens, apostrophes
+                                                const filtered = e.target.value.replace(/[^a-zA-Z\s\-']/g, "");
+                                                setFullName(filtered);
+                                            }}
+                                            className={`w-full h-12 bg-white/5 border rounded-xl px-4 text-white focus:outline-none focus:ring-2 transition-all placeholder:text-white/20 ${
+                                                nameError
+                                                    ? "border-red-500/60 focus:ring-red-500/30"
+                                                    : "border-white/10 focus:ring-primary/50"
+                                            }`}
                                         />
+                                        {nameError && (
+                                            <p className="text-xs text-red-400/80 ml-1 mt-0.5">Numbers are not allowed in the name</p>
+                                        )}
                                     </div>
 
-                                    <div className="space-y-2">
+                                    <div className="space-y-1">
                                         <label htmlFor="email" className="text-sm font-medium text-white/70 ml-1">Email Address</label>
                                         <input
                                             required
@@ -108,9 +142,25 @@ export function ConnectModal() {
                                             id="email"
                                             placeholder="jane@company.com"
                                             value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-white/20"
+                                            onChange={(e) => {
+                                                // Strip characters that cannot appear in a valid email
+                                                const filtered = e.target.value.replace(/[^a-zA-Z0-9._%+\-@]/g, "");
+                                                const hasInvalid = e.target.value !== filtered;
+                                                if (hasInvalid) {
+                                                    setEmailError(true);
+                                                    setTimeout(() => setEmailError(false), 2000);
+                                                }
+                                                setEmail(filtered);
+                                            }}
+                                            className={`w-full h-12 bg-white/5 border rounded-xl px-4 text-white focus:outline-none focus:ring-2 transition-all placeholder:text-white/20 ${
+                                                emailError
+                                                    ? "border-red-500/60 focus:ring-red-500/30"
+                                                    : "border-white/10 focus:ring-primary/50"
+                                            }`}
                                         />
+                                        {emailError && (
+                                            <p className="text-xs text-red-400/80 ml-1 mt-0.5">Only valid email characters are allowed</p>
+                                        )}
                                     </div>
 
                                     <div className="space-y-2">
