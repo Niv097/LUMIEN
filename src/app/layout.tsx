@@ -77,9 +77,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href="/favicon.png" sizes="48x48" />
+        {/* Standard Favicon for all devices */}
+        <link rel="icon" type="image/png" href="/favicon.png" sizes="any" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        {/* iOS / iPadOS specific icon */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Android Chrome specific config */}
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="Lumien" />
         <Script
           id="json-ld-organization"
           type="application/ld+json"
