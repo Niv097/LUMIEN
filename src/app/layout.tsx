@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     "Fintech Platform India"
   ],
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/favicon.png?v=2",
+    apple: "/favicon.png?v=2",
   },
   verification: {
     google: "vlRE875ERyfaaKPyq2JMYWhcVAcdwQwMBvQhY_AzcWc",
@@ -77,15 +77,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        {/* Standard Favicon for all devices */}
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="any" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
-        <link rel="shortcut icon" href="/favicon.png" />
+        {/* Standard Favicon for all devices (cache-busted with ?v=2) */}
+        <link rel="icon" type="image/png" href="/favicon.png?v=2" sizes="any" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png?v=2" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=2" />
+        <link rel="shortcut icon" href="/favicon.png?v=2" />
         {/* iOS / iPadOS specific icon */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
         {/* Android Chrome specific config */}
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/site.webmanifest?v=2" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="Lumien" />
         <Script
