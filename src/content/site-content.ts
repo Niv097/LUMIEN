@@ -276,7 +276,7 @@ export const layoutContent = {
 } as const;
 
 export const homeContent = {
-  heroBadge: "LumienInnovative Ventures Pvt.Ltd.",
+  heroBadge: "Lumien Innovative Ventures Pvt. Ltd.",
   heroHeadlineSegments: [
     { text: "India’s", br: true },
     { text: "Compliance-Driven", className: "text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50", br: true },

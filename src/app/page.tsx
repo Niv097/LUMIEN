@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useCallback } from "react";
 import { ArrowRight, CheckCircle, Code2, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -39,6 +40,18 @@ const itemVariants = {
 
 export default function Home() {
   const { openConnectModal } = useModal();
+  const [tapped, setTapped] = useState(false);
+
+  const handleMobileTap = useCallback(() => {
+    if (tapped) return;
+    setTapped(true);
+    // After arrow shoots + fades (480ms), open modal
+    setTimeout(() => {
+      openConnectModal();
+      // Reset state after modal opens so button works again next time
+      setTimeout(() => setTapped(false), 600);
+    }, 480);
+  }, [tapped, openConnectModal]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -57,9 +70,8 @@ export default function Home() {
               <h1 className="sr-only">Lumien India</h1>
               <h2 className="sr-only">India's Compliance-Driven Banking Technology Partner</h2>
 
-              <motion.div variants={itemVariants}>
+              <motion.div variants={itemVariants} style={{ marginBottom: "18px" }}>
                 <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-base md:text-sm font-medium text-primary">
-                  <span className="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
                   {homeContent.heroBadge}
                 </div>
               </motion.div>
@@ -85,10 +97,65 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              <motion.div variants={itemVariants} className="mt-8 md:mt-4">
-                <UnderlineButton onClick={openConnectModal}>
-                  {homeContent.heroSecondaryCta}
-                </UnderlineButton>
+              <motion.div variants={itemVariants} className="mt-6">
+                {/* Keyframes: float (shared), shoot+fade (mobile tap) */}
+                <style>{`
+                  @keyframes hero-float {
+                    0%,100% { transform: translateY(0); }
+                    50%      { transform: translateY(-4px); }
+                  }
+                  @keyframes arrow-shoot {
+                    0%   { transform: translateX(0);    opacity: 1; }
+                    60%  { transform: translateX(48px); opacity: 1; }
+                    100% { transform: translateX(72px); opacity: 0; }
+                  }
+                  .arrow-shoot-animate {
+                    animation: arrow-shoot 0.45s cubic-bezier(0.4,0,0.2,1) forwards !important;
+                  }
+                `}</style>
+
+                {/* ── MOBILE ONLY: tap → shoot → modal ── */}
+                <button
+                  onClick={handleMobileTap}
+                  aria-label="Schedule a Consultation"
+                  className="md:hidden flex items-center justify-center
+                    w-12 h-12 rounded-full cursor-pointer
+                    border border-cyan-500/50
+                    bg-white/5 backdrop-blur-sm
+                    shadow-[0_2px_12px_rgba(34,211,238,0.10)]
+                    focus:outline-none focus:ring-2 focus:ring-cyan-500/40
+                    active:scale-95 transition-transform duration-100"
+                  style={{ animation: tapped ? "none" : "hero-float 3.5s ease-in-out infinite" }}
+                >
+                  <ArrowRight
+                    className={`h-5 w-5 text-cyan-400${tapped ? " arrow-shoot-animate" : ""}`}
+                    strokeWidth={2}
+                  />
+                </button>
+
+                {/* ── DESKTOP ONLY: hover expand ── */}
+                <button
+                  onClick={openConnectModal}
+                  aria-label="Schedule a Consultation"
+                  style={{ animation: "hero-float 3.5s ease-in-out infinite" }}
+                  className="hidden md:flex group items-center gap-0 overflow-hidden
+                    w-12 hover:w-60
+                    h-12 rounded-full cursor-pointer
+                    border border-cyan-500/50 hover:border-cyan-400/70
+                    bg-white/5 hover:bg-gradient-to-r hover:from-cyan-500/80 hover:to-indigo-600/80
+                    backdrop-blur-sm
+                    shadow-[0_2px_12px_rgba(34,211,238,0.10)]
+                    hover:shadow-[0_4px_20px_rgba(34,211,238,0.25)]
+                    transition-all duration-500 ease-in-out
+                    focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+                >
+                  <span className="flex-shrink-0 flex items-center justify-center w-12 h-12">
+                    <ArrowRight className="h-5 w-5 text-cyan-400 group-hover:text-white transition-colors duration-300 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
+                  </span>
+                  <span className="whitespace-nowrap text-sm font-medium text-white/90 pr-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150">
+                    Schedule a Consultation
+                  </span>
+                </button>
               </motion.div>
 
               <motion.div variants={itemVariants} className="mt-8 pt-8 border-t border-white/10 hidden md:flex gap-8">
