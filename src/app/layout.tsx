@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     "Compliance Banking Software",
     "Fintech Platform India"
   ],
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   verification: {
     google: "vlRE875ERyfaaKPyq2JMYWhcVAcdwQwMBvQhY_AzcWc",
   },
@@ -73,6 +77,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="icon" href="/favicon.png" sizes="48x48" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <Script
           id="json-ld-organization"
           type="application/ld+json"
