@@ -14,6 +14,15 @@ export const metadata: Metadata = {
   title: "Lumien India – Banking Technology Company",
   description:
     "Lumien India provides compliance-driven banking software solutions for Indian banks. Secure, scalable fintech platform aligned with RBI and NPCI.",
+  keywords: [
+    "Lumien India",
+    "Lumien Innovation",
+    "Lumien Banking",
+    "Lumien India Careers",
+    "Banking Technology Company India",
+    "Compliance Banking Software",
+    "Fintech Platform India"
+  ],
   verification: {
     google: "vlRE875ERyfaaKPyq2JMYWhcVAcdwQwMBvQhY_AzcWc",
   },
@@ -44,6 +53,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Lumien India",
+  alternateName: ["Lumien Innovation", "Lumien Banking"],
   url: "https://lumien-india.com",
   logo: "https://lumien-india.com/images/logo.png",
   description:
