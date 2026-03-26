@@ -99,7 +99,7 @@ export default function Home() {
               <motion.div variants={itemVariants}>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
                   <SequentialTypewriter
-                    speed={120}
+                    speed={70}
                     delay={400}
                     segments={homeContent.heroHeadlineSegments.map((s) => ({
                       text: s.text,
