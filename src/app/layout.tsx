@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     "Fintech Platform India"
   ],
   icons: {
-    icon: "/favicon.png?v=2",
-    apple: "/favicon.png?v=2",
+    icon: "/favicon.png?v=3",
+    apple: "/apple-touch-icon.png?v=3",
   },
   verification: {
     google: "vlRE875ERyfaaKPyq2JMYWhcVAcdwQwMBvQhY_AzcWc",
@@ -59,7 +59,7 @@ const jsonLd = {
   name: "Lumien India",
   alternateName: ["Lumien Innovation", "Lumien Banking"],
   url: "https://lumien-india.com",
-  logo: "https://lumien-india.com/images/logo.png",
+  logo: "https://lumien-india.com/logo.png",
   description:
     "Lumien India provides compliance-driven banking software solutions for Indian banks, aligned with RBI and NPCI regulations.",
   address: {
@@ -77,15 +77,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        {/* Standard Favicon for all devices (cache-busted with ?v=2) */}
-        <link rel="icon" type="image/png" href="/favicon.png?v=2" sizes="any" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png?v=2" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=2" />
-        <link rel="shortcut icon" href="/favicon.png?v=2" />
+        {/* Standard Favicon for all devices (cache-busted with ?v=3) */}
+        <link rel="icon" type="image/png" href="/favicon.png?v=3" sizes="any" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png?v=3" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=3" />
+        <link rel="shortcut icon" href="/favicon.png?v=3" />
         {/* iOS / iPadOS specific icon */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
         {/* Android Chrome specific config */}
-        <link rel="manifest" href="/site.webmanifest?v=2" />
+        <link rel="manifest" href="/site.webmanifest?v=3" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="Lumien" />
         <Script
